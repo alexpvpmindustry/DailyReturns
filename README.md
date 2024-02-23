@@ -1,5 +1,7 @@
 # DailyReturns
 
+view at (https://alexpvpmindustry.github.io/DailyReturns/)[https://alexpvpmindustry.github.io/DailyReturns/]
+
 This web app allows users to calculate and visualize the daily returns of an investment over a period of 30 days. The user inputs the starting amount and the growth rate (in percentage), and the app dynamically generates three tables, each presenting different aspects of the investment:
 
 1. **Starting Amount**: This table displays the initial investment amount for each day (1-30).
