@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Returns Calculator</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation 0.5s ease forwards;
+    }
+
+    @keyframes fadeInAnimation {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <h2 class="mt-4">Daily Returns Calculator</h2>
+
+    <form id="calculator-form" class="mt-4">
+        <div class="form-group">
+            <label for="starting-amount">Starting Amount ($):</label>
+            <input type="number" id="starting-amount" name="starting-amount" class="form-control" value="5000" step="0.01" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="growth-rate">DAily Growth Rate (%):</label>
+            <input type="number" id="growth-rate" name="growth-rate" class="form-control" value="1" step="0.01" min="0" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    </form>
+
+    <br>
+
+    <table id="result-table" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Day</th>
+                <th>Starting Amount</th>
+                <th>Daily Return</th>
+                <th>Total Return</th>
+                <th>Final Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table body will be filled dynamically -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.getElementById("calculator-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var startingAmount = parseFloat(document.getElementById("starting-amount").value);
+        var growthRate = parseFloat(document.getElementById("growth-rate").value) / 100;
+
+        var tableBody = document.getElementById("result-table").getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = "";
+
+        var totalReturn = 0;
+        var finalAmount = startingAmount;
+        for (var day = 1; day <= 30; day++) {
+            var dailyReturn = finalAmount * growthRate;
+            totalReturn += dailyReturn;
+            finalAmount += dailyReturn;
+            var newRow = "<tr class='fade-in' style='animation-delay: " + (day * 0.05) + "s'><td>" + day + "</td><td>$" + startingAmount.toFixed(2) + "</td><td>$" + dailyReturn.toFixed(2) + "</td><td>$" + totalReturn.toFixed(2) + "</td><td>$" + finalAmount.toFixed(2) + "</td></tr>";
+            tableBody.innerHTML += newRow;
+            startingAmount += dailyReturn;
+        }
+        tableBody.classList.add("fade-in-table");
+    });
+</script>
+
+</body>
+</html>
